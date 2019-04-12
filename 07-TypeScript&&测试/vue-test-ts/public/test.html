@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>vue-test-ts</title>
+</head>
+
+<body>
+
+    <div id="dom">1</div>
+
+</body>
+<script>
+    let dom = document.getElementById('dom');
+    document.getElementById('dom').addEventListener('click', ev => {
+        getFirstChild(dom)
+    })
+    function getFirstChild(child) {
+        let { x, y } = child.getBoundingClientRect();
+        let val = null;
+        function init(val) {
+            val = val;
+        }
+        init('2')
+        if (val === 2) {
+            return true
+        }
+        if (x && y) {
+            return true
+        } else {
+            return false
+        }
+
+        console.log(val)
+    }
+
+
+</script>
+
+</html>
