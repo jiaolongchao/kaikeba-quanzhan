@@ -1,30 +1,40 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import {Welcome1, Welcome2} from './components/CompType';
-import Clock from './components/Clock';
-import StateTest from './components/StateTest';
-import CartSample from './components/CartSample';
-import ScrollingList from './components/ScrollingList';
-import AntdTest from './components/AntdTest';
-import CommentList from './components/CommentList';
-import Hoc from './components/Hoc';
-import Composition from './components/Composition';
-import HookTest from './components/HookTest';
-import ContextTest from './components/ContextTest';
-function formatName(params) {
-    return params.firstName + " " + params.lastName; 
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import './App.css'
+import { Welcome1, Welcome2 } from './components/CompType'
+import Clock from './components/Clock'
+import StateTest from './components/StateTest'
+import CartSample from './components/CartSample'
+import ScrollingList from './components/ScrollingList'
+import AntdTest from './components/AntdTest'
+import CommentList from './components/CommentList'
+import Hoc from './components/Hoc'
+import Composition from './components/Composition'
+import HookTest from './components/HookTest'
+import ContextTest from './components/ContextTest'
+import ReduxTest from './components/ReduxTest'
+import { Provider } from 'react-redux'
+import store from './components/store/index.js'
+import RouteSample from './components/RouteSample'
+function formatName (params) {
+  return params.firstName + ' ' + params.lastName
 }
 
 class App extends Component {
-  render() {
-    const name = 'jerry';
-    const user = {firstName : "tom" , lastName :"jerry"}
-    const jsx = <p>hello jerry</p>;
+  render () {
+    const name = 'jerry'
+    const user = { firstName: 'tom', lastName: 'jerry' }
+    const jsx = <p>hello jerry</p>
     return (
-      <div className="App">
+      <div className='App'>
+        {/* redux */}
+        <Provider store={store}>
+          {/* <ReduxTest /> */}
+          <RouteSample />
+        </Provider>
+
         {/* 创建上下文 */}
-        <ContextTest />
+        {/* <ContextTest /> */}
 
         {/* hook */}
         {/* <HookTest /> */}
@@ -58,10 +68,9 @@ class App extends Component {
         <CartSample title="购物车"/>
 
         <ScrollingList /> */}
-
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

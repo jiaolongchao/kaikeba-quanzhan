@@ -1,35 +1,34 @@
-import React , {useContext} from 'react'
+import React, { useContext } from 'react'
 
 // 1.创建上下文
-const MyContext = React.createContext();
-const { Provider, Consumer } = MyContext;
+const MyContext = React.createContext()
+const { Provider, Consumer } = MyContext
 
-
-function Child(prop) {
-  return <div>Child: {prop.foo}</div>;
+function Child (prop) {
+  return <div>Child: {prop.foo}</div>
 }
 
-//使用hook消费
-function Child2() {
-  const context = useContext(MyContext);
-  return <div>Child2: {context.foo}</div>;
+// 使用hook消费
+function Child2 () {
+  const context = useContext(MyContext)
+  return <div>Child2: {context.foo}</div>
 }
 
 // 使用class指定静态contextType
 class Child3 extends React.Component {
-    // 设置静态属性通知编译器获取上下文中数据并赋值给this.context
-    static contextType = MyContext;
-    //contextType是静态类型，当编译器监测到有一个静态类型的contextType，就知道应该干活了，就把MyContext里面的值拿出来赋值给this.context
-    //声明一个静态属性来确定上下文
-    render() {
-        return <div>Child3: {this.context.foo}</div> //这里的context必须
-    }
+  // 设置静态属性通知编译器获取上下文中数据并赋值给this.context
+  static contextType = MyContext
+  // contextType是静态类型，当编译器监测到有一个静态类型的contextType，就知道应该干活了，就把MyContext里面的值拿出来赋值给this.context
+  // 声明一个静态属性来确定上下文
+  render () {
+    return <div>Child3: {this.context.foo}</div> // 这里的context必须
+  }
 }
 
-export default function ContextTest() {
+export default function ContextTest () {
   return (
     <div>
-      <Provider value={{ foo: "bar" }}>
+      <Provider value={{ foo: 'bar' }}>
         {/* 消费方法1：Consumer */}
         <Consumer>{value => <Child {...value} />}</Consumer>
         {/* 消费方法2：hook */}

@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <script src="https://unpkg.com/vue@2.1.10/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/cube-ui/lib/cube.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.6.0/qs.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/cube-ui/lib/cube.min.css">
+    <style>
+        .cube-btn {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <cube-button @click='auth'>微信登录</cube-button>
+        <cube-button @click='getUser'>获取用户信息</cube-button>
+        <cube-button @click='getJSConfig'>获取JSConfig</cube-button>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                value: 'input'
+            },
+
+            methods: {
+                async auth() {
+                    window.location.href = '/wxAuthorize' //导向微信服务器端 去认证
+                },
+                async getUser() {
+                    const qs = Qs.parse(window.location.search.substr(1))
+                    const openid = qs.openid
+                    const res = await axios.get('/getUser', {
+                        params: {
+                            openid
+                        }
+                    })
+                    console.log('getUser', res)
+                },
+                async getJSConfig() {
+                    console.log('wx:', wx) //在认证之前我们先构造一个认证用的参数集
+                    const res = await axios.get('/getJSConfig', {
+                        params: {
+                            url: window.location.href
+                        }
+                    })
+                    console.log('config:', res)
+                    res.data.jsApiList = ['onMenuShareTimeline', 'onMenuShareAppMessage'] //添加自定义的接口数据 调用分享
+                    wx.config(res.data) //认证的过程
+                    wx.ready(function (res) {
+                        console.log('wx.ready')
+                    })
+
+                    //获取网络地址状态
+                    wx.getNetworkType({
+                        seccess:function(res){
+                            const networkType = res.networkType
+                            console.log('getnetworkType....' , networkType)
+                        }
+                    })
+                }
+
+            },
+            mounted: function () {
+
+            },
+        });
+    </script>
+</body>
+
+</html>
