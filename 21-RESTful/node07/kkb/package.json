@@ -14,7 +14,7 @@
     "co-redis": "^2.1.1",
     "cpu-stat": "^2.0.1",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-bouncer": "^6.0.4",
